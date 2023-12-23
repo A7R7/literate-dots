@@ -1,0 +1,22 @@
+#+title: Nushell Configuration
+#+author:A7R7
+#+language:en
+#+PROPERTY: header-args:conf :tangle config.nu :comments link
+#+AUTO_TANGLE: t
+
+* Starship
+#+begin_src conf :tangle env.nu
+mkdir ~/.cache/starship
+starship init nu | save -f ~/.cache/starship/init.nu
+#+end_src
+
+#+begin_src conf :tangle config.nu
+use ~/.cache/starship/init.nu
+#+end_src
+
+* Disable welcome message
+#+begin_src conf
+$env.config = {
+  show_banner: false,
+}
+#+end_src

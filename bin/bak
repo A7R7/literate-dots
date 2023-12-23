@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <filename>"
+  exit 1
+fi
+
+file=$1
+ext=".bak"
+count=1
+
+while [ -e "$file$ext$count" ]; do
+  ((count++))
+done
+
+backup_file="$file$ext$count"
+
+mv "$file" "$backup_file"
+
+echo "$file moved to $backup_file"

@@ -1,0 +1,225 @@
+#+TITLE: Zathura Configuration
+#+PROPERTY: header-args:conf :tangle zathurarc :language conf
+#+AUTO_TANGLE: t
+
+This is my zathura configuration file with descriptions.
+
+You can read about how to config zathura by executing ~man zathurarc~ in cmdline.
+
+However I found out that the man page have some problems: it shows you all the shortcut functions and all the arguments, but do not show you which argument is avaliable for on function.
+
+* Colors
+#+begin_src conf
+  # set default-bg                  "rgba(26, 27, 38, 0.8)"
+  set default-bg                  "rgba(36, 40, 59, 0.9)"
+  set default-fg                  "#a9b1d6"
+
+  set statusbar-fg                "#a9b1d6"
+  set statusbar-bg                "#24283b"
+
+  set inputbar-bg                 "#1a1b26"
+  set inputbar-fg                 "#73daca"
+
+  set notification-bg             "#1a1b26"
+  set notification-fg             "#73daca"
+
+  set notification-error-bg       "#1a1b26"
+  set notification-error-fg       "#f7768e"
+
+  set notification-warning-bg     "#1a1b26"
+  set notification-warning-fg     "#f7768e"
+
+  set highlight-color             "#e0af68"
+  set highlight-active-color      "#9aa5ce"
+
+  set completion-bg               "#24283b"
+  set completion-fg               "#a9b1d6"
+
+  set completion-highlight-fg     "#9aa5ce"
+  set completion-highlight-bg     "#24283b"
+
+  set recolor-lightcolor          "rgba(0, 0, 0, 0)"
+  set recolor-darkcolor           "#c0caf5"
+
+  set recolor                     "false"
+  set recolor-keephue             "true"
+#+end_src
+
+* Options
+#+begin_src conf
+  set synctex true
+  set synctex-editor-command "nvr --remote-silent %f -c %l"
+  set window-title-basename "true"
+  set selection-clipboard "clipboard"
+  set adjust-open width
+  set font "Sarasa UI 16"
+  set smooth-scroll true
+  # set recolor-lightcolor "#0044cc"
+#+end_src
+
+* Keybinds
+
+As usual, deploy my special navigating habit.
+(I don't recommend anyone to use this)
+
+#+begin_src conf
+  map j scroll left
+  map k scroll up
+  map l scroll down
+  map ; scroll right
+#+end_src
+
+#+begin_src conf
+  map <C-j> scroll half-left
+  map <C-k> scroll half-up
+  map <C-l> scroll half-down
+  map <C-;> scroll half-right
+#+end_src
+
+#+begin_src conf
+  map K navigate previous
+  map L navigate next
+  map J scroll full-left
+  map : scroll full-right
+#+end_src
+
+#+begin_src conf
+  map <A-r> reload
+  map <A-x> focus_inputbar
+  map i zoom in
+  map o zoom out
+#+end_src
+* Reference
+This page displays zathura's default keybindings. https://gist.github.com/AegirAexx/9770e6a0c1ea159cb579f3e42b9766c7
+
+For convenience, I just put it here.
+#+begin_src conf :tangle no
+General
+
+  J, PgDn
+    Go to the next page
+  K, PgUp
+    Go to the previous page
+  h, k, j, l
+    Scroll to the left, down, up or right direction
+  Left, Down, Up, Right
+    Scroll to the left, down, up or right direction
+  ^t, ^d, ^u, ^y
+    Scroll a half page left, down, up or right
+  t, ^f, ^b, space, <S-space>, y
+    Scroll a full page left, down, up or right
+  gg, G, nG
+    Goto to the first, the last or to the nth page
+  H, L
+    Goto top or bottom of the current page
+  ^o, ^i
+    Move backward and forward through the jump list
+  ^j, ^k
+    Bisect forward and backward between the last two jump points
+  ^c, Escape
+    Abort
+  a, s
+    Adjust window in best-fit or width mode
+  /, ?
+    Search for text
+  n, N
+    Search for the next or previous result
+  o, O
+    Open document
+  f
+    Follow links
+  F
+    Display link target
+  \:
+    Enter command
+  r
+    Rotate by 90 degrees
+  ^r
+    Recolor (grayscale and invert colors)
+  R
+    Reload document
+  Tab
+    Show index and switch to **Index mode**
+  d
+    Toggle dual page view
+  F5
+    Switch to presentation mode
+  F11
+    Switch to fullscreen mode
+  ^m
+    Toggle inputbar
+  ^n
+    Toggle statusbar
+  +, -, =
+    Zoom in, out or to the original size
+  zI, zO, z0
+    Zoom in, out or to the original size
+  n=
+    Zoom to size n
+  mX
+    Set a quickmark to a letter or number X
+  'X
+    Goto quickmark saved at letter or number X
+  q
+    Quit
+
+
+Fullscreen mode
+
+  J, K
+    Go to the next or previous page
+  space, <S-space>, <BackSpace>
+    Scroll a full page down or up
+  gg, G, nG
+    Goto to the first, the last or to the nth page
+  ^c, Escape
+    Abort
+  F11
+    Switch to normal mode
+  +, -, =
+    Zoom in, out or to the original size
+  zI, zO, z0
+    Zoom in, out or to the original size
+  n=
+    Zoom to size n
+  q
+    Quit
+
+Presentation mode
+
+  space, <S-space>, <BackSpace>
+    Scroll a full page down or up
+  ^c, Escape
+    Abort
+  F5
+    Switch to normal mode
+  q
+    Quit
+
+Index mode
+
+  k, j
+    Move to upper or lower entry
+  l
+    Expand entry
+  L
+    Expand all entries
+  h
+    Collapse entry
+  H
+    Collapse all entries
+  space, Return
+    Select and open entry
+
+
+Mouse bindings
+
+  Scroll
+    Scroll up or down
+  ^Scroll
+    Zoom in or out
+  Hold Button2
+    Pan the document
+  Button1
+    Follow link
+#+end_src

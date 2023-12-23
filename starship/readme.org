@@ -1,0 +1,198 @@
+
+#+title: Starship Configuration
+#+author:A7R7
+#+language:en
+#+PROPERTY: header-args:toml :tangle starship.toml :comments link
+#+AUTO_TANGLE: t
+
+* Format
++ Left format. The last character of ~format~ is a zero-width space.
+#+begin_src toml
+format = """
+$character$shell$shlvl $username $directory\
+$git_branch$git_commit$git_status$git_state\
+$c$cmake\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$lua\
+$nodejs$nim\
+$rust\
+$scala\
+$docker_context
+​"""
+#+end_src
+
+* COMMENT Right format
+#+begin_src toml
+right_format = """
+$username- $shell
+"""
+#+end_src
+* Options
+#+begin_src toml
+add_newline = true
+command_timeout = 1000
+#+end_src
+* Basic
+#+begin_src toml
+[username]
+show_always = true
+# style_user = " fg:#103f91"
+# style_root = " fg:#103f91"
+format = '[$user]($style)'
+#+end_src
+
+#+begin_src toml
+[time]
+disabled = false
+time_format = "%T" # Hour:Minute Format
+# style = "fg:#00e0a9"
+format = '[$time]($style)'
+#+end_src
+
+#+begin_src toml
+[directory]
+# style = " fg:#00e0a9"
+format = "[$path]($style)"
+truncation_length = 10
+truncate_to_repo = false
+truncation_symbol = "…/"
+#+end_src
+
+#+begin_src toml
+[shell]
+bash_indicator = 'BASH'
+fish_indicator = 'FISH'
+zsh_indicator = 'ZSH'
+powershell_indicator = 'POWER'
+ion_indicator = 'ION'
+elvish_indicator = 'ELVISH'
+tcsh_indicator = 'TCSH'
+xonsh_indicator = 'XONSH'
+cmd_indicator = 'CMD'
+nu_indicator = 'NU'
+unknown_indicator = '? shell'
+style = 'cyan'
+disabled = false
+format = '[$indicator]($style)'
+#+end_src
+
+#+begin_src toml
+[character]
+success_symbol = '[󰝤](bold green)'
+error_symbol = '[󰝤](bold red)'
+#+end_src
+* COMMENT Fill
+#+begin_src toml
+[fill]
+symbol = ' '
+#+end_src
+* Git
+#+begin_src toml
+[git_branch]
+symbol = " "
+style = " fg:#0094da"
+format = '[ $symbol$branch ]($style)'
+#+end_src
+
+#+begin_src toml
+[git_commit]
+tag_symbol ="󰓹 "
+format = '[\($hash$tag\)]($style)'
+#+end_src
+
+Ignoring git submodule in repo with many submodules will drastically increase speed.
+#+begin_src toml
+[git_status]
+ignore_submodules = true
+untracked = " "
+modified = " "
+staged = " "
+deleted = "󰚃 "
+ahead = " "
+behind = " "
+stashed = " "
+conflicted = " "
+diverged = "󰿣 "
+style = " fg:#0094da"
+format = '[$all_status$ahead_behind ]($style)'
+#+end_src
+
+#+begin_src toml
+
+#+end_src
+* Langs
+#+begin_src toml
+[c]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[cmake]
+symbol = "Cmake "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[docker_context]
+symbol = " "
+style = " fg:#00e0a9"
+format = '[ $symbol$context ]($style) $path'
+
+[elixir]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[elm]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[golang]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[haskell]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[java]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[julia]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[lua]
+symbol = "󰢱"
+
+[nodejs]
+symbol = ""
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[nim]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[rust]
+symbol = ""
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+[scala]
+symbol = " "
+style = " fg:#00bcd0"
+format = '[ $symbol($version) ]($style)'
+
+#+end_src

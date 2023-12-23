@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <hex-color|rgb-color>"
+  exit 1
+fi
+
+color=$1
+
+r=$((16#"${color:1:2}"))
+g=$((16#"${color:3:2}"))
+b=$((16#"${color:5:2}"))
+
+# Print the RGB values
+echo "rgb($r, $g, $b)"

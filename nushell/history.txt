@@ -1,0 +1,25 @@
+ls
+..
+ls
+mv nushell nushell.bak
+ls
+mv nushell.bak nushell
+cd
+cd .config
+ls
+cd
+cd .config
+ls
+cd emacs
+ls
+󰝤 
+ls
+l
+ls
+la
+fish
+zsh
+xonsh
+$nu.env-path
+xonsh
+xonsh

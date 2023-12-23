@@ -1,0 +1,110 @@
+#+TITLE: Kitty Configuration
+#+AUTHOR: A7R7
+#+PROPERTY: header-args:conf :tangle kitty.conf :language conf
+#+AUTO_TANGLE: t
+
+* Fonts
+#+begin_src conf
+font_family          Hack Nerd Font Regular
+bold_font            Hack Nerd Font Bold
+italic_font          Hack Nerd Font Italic
+bold_italic_font     Hack Nerd Font Bold Italic
+#+end_src
+
+#+begin_src conf
+font_size 14.0
+#+end_src
+
+#+begin_src conf
+modify_font cell_height 110%
+#+end_src
+
+* cursor
+#+begin_src conf
+cursor_shape underline
+cursor_underline_thickness 5.0
+#+end_src
+
+* Colors
+#+begin_src conf
+background #212337
+foreground #d0d8f0
+#+end_src
+
+#+begin_src conf
+background_opacity 0.96
+#+end_src
+
+#+begin_src conf
+cursor #ffd767
+cursor_text_color #212337
+#+end_src
+** Color table
+Each color have a dull (color 0-7) and a bright(8-15) version.
+
+- black
+#+begin_src conf
+color0  #191a2a
+color8  #2f334d
+#+end_src
+
+- red
+#+begin_src conf
+  color1  #ff5370
+  color9  #ff757f
+#+end_src
+
+- green
+#+begin_src conf
+  color2  #c3e88d
+  color10 #93f88d
+#+end_src
+
+- yellow
+#+begin_src conf
+  color3  #ffa95f
+  color11 #ffd767
+#+end_src
+
+- blue
+#+begin_src conf
+  color4  #4976eb
+  color12 #82aaff
+#+end_src
+
+- magenta
+#+begin_src conf
+  color5  #baacff
+  color13 #c099ff
+#+end_src
+
+- cyan
+#+begin_src conf
+  color6  #86dffd
+  color14 #b4f9f8
+#+end_src
+
+- white
+#+begin_src conf
+  color7  #d0d8f0
+  color15 #d0d8f0
+#+end_src
+
+* Window
+#+begin_src conf
+  window_padding_width 10
+#+end_src
+* Keybinds
+#+begin_src conf
+  map ctrl+c       copy_to_clipboard
+  map ctrl+v       paste_from_clipboard
+  map ctrl+g       send_text all \x03
+#+end_src
+* Misc
+#+begin_src conf
+confirm_os_window_close 0
+#+end_src
+
+#+begin_src conf
+  shell elvish
+#+end_src

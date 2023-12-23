@@ -1,0 +1,18 @@
+#+title: TCSH Configuration
+#+author: A7R7
+#+language: en
+#+PROPERTY: header-args:sh :tangle .tcshrc
+#+AUTO_TANGLE: t
+
+* Starship
+#+begin_src sh
+eval `starship init tcsh`
+#+end_src
+
+* alias
+#+begin_src sh
+alias l 'eza --group-directories-first --icons=auto'
+alias ll 'eza -l --icons=auto'
+alias ls 'eza --group-directories-first --icons=auto'
+alias la 'eza -a --icons=auto'
+#+end_src

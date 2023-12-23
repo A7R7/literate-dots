@@ -1,0 +1,115 @@
+#+TITLE: Elvish Configuration
+#+AUTHOR: A7R7
+#+language: en
+#+PROPERTY: header-args:elvish :tangle rc.elv
+#+AUTO_TANGLE: t
+
+* Bultin-Modules
+Load the bundled re module to have access to regular expression functions.
+#+begin_src elvish
+  use re
+#+end_src
+* COMMENT Add path
+#+begin_src elvish
+var $E:PATH = $E:HOME"/.local/bin:"$E:PATH
+#+end_src
+* Package installation
+The bundled epm is a package manager for elvish.
+Below codes install packages that haven't been installed.
+Note that the packages are only ensured installed but not used.
+#+begin_src elvish
+use epm
+epm:install &silent-if-installed         ^
+  github.com/zzamboni/elvish-modules
+#+end_src
+
+* Alias
+Elvish do not support alias by default. [[https://github.com/zzamboni/elvish-modules/blob/master/alias.org][Doc for alias]].
+#+begin_src elvish
+use github.com/zzamboni/elvish-modules/alias
+#+end_src
+*** Commonly used
++ [[https://github.com/eza-community/eza][eza]], a mordern, maintained replacement for ls.
+#+begin_src elvish
+alias:new l eza --group-directories-first --icons=auto
+alias:new ls eza --group-directories-first --icons=auto
+alias:new la eza -a --icons=auto
+alias:new ll eza -l --icons=auto
+#+end_src
+
+#+begin_src elvish
+alias:new . cd ~
+alias:new ... cd ...
+alias:new .... cd ....
+#+end_src
+
+#+begin_src elvish
+alias:new cp cp -i
+alias:new cpr cp -ir
+alias:new mv mv -i
+alias:new ln ln -i
+alias:new lns ln -is
+#+end_src
+
+*** Git
+#+begin_src elvish
+alias:new g   git
+alias:new gst git status
+alias:new gad git add
+alias:new gcm git commit
+alias:new gps git push
+alias:new gpl git pull
+alias:new gbr git branch
+alias:new gck git checkout
+alias:new gcb git checkout -b
+alias:new gdf git diff
+alias:new glg git log --oneline --decorate --graph
+alias:new gla git log --oneline --decorate --graph --all
+#+end_src
+*** Others
+#+begin_src elvish
+alias:new hm home-manager
+alias:new jo joshuto --change-directory
+#+end_src
+
+* Useful functions
+
+#+begin_src elvish :tangle no
+fn unbak {|file|
+  if (not $file) {
+    echo "Error: Please provide a file name."
+    return 1
+  }
+  var new_file = (re:replace '\.bak$' '' $file)
+
+  if (eq $file $new_file) {
+    echo "File not end with '.bak'"
+    return 0
+  }
+
+  try { test -e $new_file } catch e { } else {
+    echo "Error: File '$new-file' already exists"
+    return 1
+  }
+
+  mv $file $new_file
+  echo "mv" $file " to" $new_file
+}
+#+end_src
+
+* Nix vars
+#+begin_src elvish
+  use github.com/zzamboni/elvish-modules/nix
+#+end_src
+* Carapace
+A completion backend
+#+begin_src elvish
+eval (carapace _carapace|slurp)
+#+end_src
+
+* Starship
+#+begin_src elvish
+eval (starship init elvish)
+#+end_src
+* Reference
+[[https://github.com/zzamboni/dot-elvish/blob/master/rc.org][Zzamboni's dot-elvish]]

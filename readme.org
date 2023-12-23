@@ -1,0 +1,35 @@
+#+title: My literate dotfiles
+#+author:A7R7
+#+language:en
+
+You're welcomed to have a visit of my dotfiles!
+
+All my dotfiles stored here are written in the literate programming style using emacs org mode.
+
+In brief, literate programming means that codes and documents are originally written together in an org file, and latter target files are generated from the code snippents of the org file (This procedure is called =org-babel-tangle=).
+
+
+* File structures
+Besides this readme.org, you can see several directories in the root directory of this repo, their name shows the target configurated. Each of the dir contains a =readme.org=, in which documentations and codes are presented together. When you click into one of them in github, its =readme.org= will be rendered below the file structure panel, which is quite nice. Alongside =readme.org= are the configuration files generated from it, and something else.
+
+These directories can be devided into 2 types, common dirs and git submodules.
+
+** Common dirs
+Common dirs are quite small, they only contain 2 or 3 files each, and therefore do not need independent version control.
+
+- git :: The distributed version controller.
+- elvish :: Shell written in Go. Modern, fast, friendly interactivation. carries internal structured values through pipelines. Non-POSIX compliant.
+- xonsh (/kɒntʃ/) :: Shell that tries to achieve the both goods of bash + python.
+- kitty :: Terminal emulator based on OpenGL. With TrueColor, ligatures support, protocol extensions for keyboard input and =image rendering=. With tiling capabilities like tmux.
+- zathura :: Document viewer for PDF, PS, DjVu and comic book files. Minimalistic and space-saving interface. Fast. Customizable colors, options and even =keybindings=! Just a viewer however.
+
+** Git submodules
+Git submodules are larger than common dirs and therefore demands independent VC. Some of them even have nested git submodules.
+
+- emacs :: What is the best editor on the Earth?
+- neovim :: (same as above)
+- hyprland ::
+- fcitx5 ::
+
+* Deploy
+

@@ -1,0 +1,10 @@
+#+title: Xonsh Configuration
+#+author:A7R7
+#+language:en
+#+PROPERTY: header-args:conf :tangle rc.xsh :comments link
+#+AUTO_TANGLE: t
+
+* Starship
+#+begin_src conf
+execx($(starship init xonsh))
+#+end_src

@@ -1,0 +1,35 @@
+#!usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <filename>"
+  exit 1
+fi
+
+file=$1
+ext=".bak"
+matching_files=($(ls -1 "$file$ext"* 2>/dev/null))
+
+if [ ${#matching_files[@]} -eq 0 ]; then
+  echo "No backup files found for $file"
+  exit 1
+fi
+
+# Sort the backup files by modification time in descending order
+sorted_files=($(ls -1t "${matching_files[@]}"))
+
+# Choose the newest backup file
+newest_backup="${sorted_files[0]}"
+
+# Extract the counter from the filename
+counter=$(echo "$newest_backup" | sed "s/${file}${ext}//")
+
+# Calculate the new file name
+new_file="${file}"
+
+if [ "$counter" != "" ]; then
+  new_file="${new_file}_bak${counter}"
+fi
+
+mv "$newest_backup" "$new_file"
+
+echo "Restored $newest_backup to $new_file"

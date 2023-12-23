@@ -1,0 +1,1515 @@
+#+title: Wayfire Configuration
+#+author: A7R7
+#+language: en
+#+PROPERTY: header-args:conf :tangle wayfire.ini
+#+PROPERTY: header-args:toml :tangle wayfire.ini
+#+AUTO_TANGLE: t
+
+Note that I have set WAYFIRE_CONFIG_FILE to $HOME/.config/wayfire/wayfire.ini.
+
+* General
+** Core
+#+begin_src conf
+[core]
+#+end_src
+#+begin_src toml
+plugins = \
+  alpha \
+  animate \
+  autostart  command \
+  cube  expo  fast-switcher  fisheye  foreign-toplevel grid gtk-shell idle invert move   place resize scale scale-title-filter \
+  switcher vswipe vswitch oswitch  wayfire-shell window-rules wm-actions  wrot zoom decoration\
+  water
+# wobbly \
+  # simple-tile follow-focus  \
+# crosshair
+# swayfire
+#+end_src
+
+Close focused window. I don't know why it is defined here.
+#+begin_src toml
+close_top_view = <super> KEY_Q | <alt> KEY_F4
+#+end_src
+Click any button on mouse to focus.
+#+begin_src toml
+focus_buttons = BTN_LEFT | BTN_MIDDLE | BTN_RIGHT
+focus_buttons_passthrough = true
+focus_button_with_modifiers = false
+#+end_src
+
+
+Workspaces arranged into a grid: 3 × 3.
+#+begin_src toml
+vwidth = 3
+vheight = 3
+#+end_src
+#+begin_src toml
+background_color = \#1A1A1AFF
+#+end_src
+
+
+Prefer client-side decoration or server-side decoration
+#+begin_src toml
+preferred_decoration_mode = server
+#+end_src
+
+#+begin_src toml
+max_render_time = -1 # infinity
+transaction_timeout = 100
+#+end_src
+
+Allow xwayland protocol.
+#+begin_src conf
+xwayland = true
+#+end_src
+** Input
+#+begin_src conf
+[input]
+#+end_src
+
+See [[https://github.com/WayfireWM/wayfire/wiki/Configuration#input
+][Input options]] for a complete reference.
+
+General
+#+begin_src conf
+left_handed_mode = false
+#+end_src
+
+Keyboard configurations
+#+begin_src conf
+modifier_binding_timeout = 400
+kb_repeat_delay = 250 # default 400
+kb_repeat_rate = 32 # default 40
+kb_capslock_default_state = false
+kb_numlock_default_state = false
+xkb_layout = us
+xkb_model =
+xkb_options = caps:escape,shift:both_capslock
+xkb_rules = evdev
+xkb_variant =
+#+end_src
+
+
+Touchpad configurations
+#+begin_src conf
+touchpad_accel_profile = default
+touchpad_cursor_speed = 0.000000
+touchpad_scroll_speed = 1.000000
+
+click_method = default
+tap_to_click = true
+
+scroll_method = default
+natural_scroll = true
+
+disable_touchpad_while_mouse = false
+disable_touchpad_while_typing = false
+drag_lock = false
+#+end_src
+
+Mouse and cursor configurations
+#+begin_src conf
+middle_emulation = false
+mouse_accel_profile = default
+mouse_cursor_speed = 0.000000
+mouse_scroll_speed = 1.000000
+cursor_size = 32
+cursor_theme = default
+#+end_src
+
+Tablet
+#+begin_src conf
+tablet_motion_mode = default
+#+end_src
+** Output
+You can get the names of your outputs with [[https://github.com/emersion/wlr-randr][wlr-randr]].
+See also [[https://wayland.emersion.fr/kanshi/][kanshi]] for configuring your outputs automatically.
+See [[https://github.com/WayfireWM/wayfire/wiki/Configuration#output][Output options]] for a complete reference.
+
+#+begin_src conf
+[output:eDP-1]
+mode = 2520x1680@60000
+position = 3584,0
+transform = normal
+scale = 1.0
+#+end_src
+
+#+begin_src conf
+[output:DP-2]
+mode = 2560x1440@75000
+position = 1024,0
+transform = normal
+scale = 1.0
+#+end_src
+
+#+begin_src conf
+[output:HDMI-A-1]
+mode = 1280x1024@60000
+position = 0,0
+transform = 90
+scale = 1.0
+#+end_src
+
+** Autostart
+#+begin_src conf
+[autostart]
+#+end_src
+
+Automatically start background and panel. [[https://github.com/WayfireWM/wf-shell][wf-shell]]
+Set to false if you want to override the default clients.
+wf-background wf-panel and wf-dock are started by the autostart_wf_shell option.
+Set the wallpaper, start a panel and dock if you want one.
+#+begin_src toml
+autostart_wf_shell = false
+background = wf-background
+# panel = wf-panel
+panel = waybar
+# dock = wf-dock
+#+end_src
+
+Output configuration [[https://wayland.emersion.fr/kanshi/][kanshi]]
+#+begin_src conf
+outputs = kanshi
+#+end_src
+
+Notifications [[https://wayland.emersion.fr/mako/][mako]]
+#+begin_src conf
+notifications = swaync
+#+end_src
+
+Set screen color temperature with [[https://sr.ht/~kennylevinsen/wlsunset/][wlsunset]]
+#+begin_src conf
+# gamma = wlsunset
+#+end_src
+
+Idle configuration [[https://github.com/swaywm/swayidle][swayidle]] [[https://github.com/swaywm/swaylock][swaylock]]
+#+begin_src conf
+idle = swayidle before-sleep swaylock
+#+end_src
+
+XDG desktop portal
+Needed by some GTK applications
+#+begin_src conf
+portal = /usr/libexec/xdg-desktop-portal
+#+end_src
+
+#+begin_src conf
+autostart0 = fcitx5
+autostart1 = clash-verge
+#+end_src
+
+Disables the compositor going idle with Super + z.
+This will lock your screen after 300 seconds of inactivity, then turn off your displays after another 300 seconds.
+#+begin_src conf
+[idle]
+toggle = <super> KEY_Z
+screensaver_timeout = 300
+dpms_timeout = 600
+#+end_src
+
+** Command
+#+begin_src conf
+[command]
+#+end_src
+
+#+begin_src conf
+command_terminal = kitty
+binding_terminal = <super> KEY_ENTER
+#+end_src
+
+Start your launcher with rofi
+# [[https://hg.sr.ht/~scoopta/wofi][wofi]]
+Note: Add mode=run or mode=drun to ~/.config/wofi/config.
+You can also specify the mode with --show option.
+#+begin_src conf
+command_launcher = anyrun
+binding_launcher = <super> KEY_R # Run
+#+end_src
+
+Screen locker with [[https://github.com/swaywm/swaylock][swaylock]]
+#+begin_src conf
+command_lock = swaylock
+binding_lock = <super> <shift> KEY_ESC
+#+end_src
+
+Logout with [[https://github.com/ArtsyMacaw/wlogout][wlogout]]
+#+begin_src conf
+command_logout = wlogout
+binding_logout = <super> KEY_DELETE
+#+end_src
+
+Screenshots [[https://wayland.emersion.fr/grim/][grim]] + [[https://wayland.emersion.fr/slurp/][slurp]]
+#+begin_src conf
+command_screenshot = grimblast --notify --cursor copysave area ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S_1.png')
+binding_screenshot = <shift> KEY_PRINT | <shift> KEY_SYSRQ
+#+end_src
+#+begin_src conf
+command_screenshot_interactive = grimblast --notify --cursor copysave area ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S_1.png')
+binding_screenshot_interactive = KEY_PRINT | KEY_SYSRQ
+#+end_src
+
+Volume controls with [[https://alsa-project.org][alsa]].
+#+begin_src conf
+command_volume_up = amixer set Master 5%+
+command_volume_down = amixer set Master 5%-
+binding_volume_up =
+binding_volume_down =
+repeatable_binding_volume_up = KEY_VOLUMEUP
+repeatable_binding_volume_down = KEY_VOLUMEDOWN
+command_mute = amixer set Master toggle
+binding_mute = KEY_MUTE
+#+end_src
+
+Screen brightness with [[https://haikarainen.github.io/light/][light]].
+#+begin_src conf
+command_light_up = light -A 5
+repeatable_binding_light_up = KEY_BRIGHTNESSUP
+#+end_src
+
+#+begin_src conf
+command_light_down = light -U 5
+repeatable_binding_light_down = KEY_BRIGHTNESSDOWN
+#+end_src
+
+** Custom Command
+Emacs is the best editor.
+#+begin_src conf
+command_0 = emacs
+binding_0 = <super> KEY_E
+#+end_src
+
+* Desktop
+** Output Switcher :output:key:
+Allows switch focused output (monitor) with keybinds.
+Add Shift to also bring the window.
+#+begin_src conf
+[oswitch]
+next_output = <super> KEY_O
+next_output_with_win = <shift> <super> KEY_O
+prev_output = <super> KEY_I
+prev_output_with_win = <shift> <super> KEY_I
+#+end_src
+** Background View :output:
+Allows play video on the background?
+#+begin_src conf
+[background-view]
+app_id = mpv
+command = mpv --loop=inf
+file =
+inhibit_input = true
+#+end_src
+** Autorotate :output:key:
+Allows rotating the output
+#+begin_src conf
+[autorotate-iio]
+lock_rotation = false
+rotate_down   = <alt> <ctrl> <super> KEY_DOWN
+rotate_left   = <alt> <ctrl> <super> KEY_LEFT
+rotate_right  = <alt> <ctrl> <super> KEY_RIGHT
+rotate_up     = <alt> <ctrl> <super> KEY_UP
+#+end_src
+** Idle :output:key:
+
+A plugin for idel settings, such as screen savers and DPMs.
+#+begin_src conf
+[idle]
+cube_max_zoom = 1.500000
+cube_rotate_speed = 1.000000
+cube_zoom_speed = 1000
+disable_initially = false
+disable_on_fullscreen = true
+dpms_timeout = 600
+screensaver_timeout = 300
+#+end_src
+#+begin_src conf
+toggle = <super> KEY_Z
+#+end_src
+** Preserve Output :output:
+restore windows to their original position if outputs are temporarily disconnected.
+#+begin_src conf
+[preserve-output]
+last_output_focus_timeout = 10000
+#+end_src
+** Crosshair :output:
+Show a crosshair on the cursor.
+#+begin_src conf
+[crosshair]
+line_color = \#FF0000FF
+line_width = 2
+#+end_src
+** Scale :workspace:key:
+Bring all windows in current/all workspaces to the desktop for further action.
+Another kind of overview.
+#+begin_src conf
+[scale]
+# behavior
+allow_zoom = false
+duration = 400
+middle_click_close = false
+bg_color = \#1A1A1AE6
+include_minimized = false
+# appearance
+inactive_alpha = 0.750000
+minimized_alpha = 0.450000
+spacing = 50
+text_color = \#CCCCCCFF
+title_font_size = 16
+title_overlay = all
+title_position = center
+#+end_src
+keybinds
+#+begin_src conf
+toggle =
+toggle_all = <super> KEY_P
+#+end_src
+#+begin_src conf
+
+#+end_src
+** Scale title filter :workspace:
+type in the scale interface to
+#+begin_src conf
+[scale-title-filter]
+bg_color = \#00000080
+case_sensitive = false
+font_size = 30
+overlay = true
+share_filter = false
+text_color = \#CCCCCCCC
+#+end_src
+** TODO Join Views
+#+begin_src conf
+[join-views]
+#+end_src
+** Extra gestures :touchscreen:touch:
+#+begin_src conf
+[extra-gestures]
+close_fingers = 20
+move_delay = 500
+move_fingers = 3
+#+end_src
+** Expo :workspace:key:
+Can show an overview of all workspaces.
+Workspaces are arranged into a grid of 3 × 3.
+See ~core.vwidth~ and ~core.vheight~ for configuring the grid.
+#+begin_src conf
+[expo]
+background = \#1A1A1AFF
+duration = 300
+inactive_brightness = 0.700000
+keyboard_interaction = true
+offset = 10
+transition_length = 200
+#+end_src
+
+#+begin_src conf
+toggle = <super>
+select_workspace_1 = KEY_1 | KEY_KP1
+select_workspace_2 = KEY_2 | KEY_KP2
+select_workspace_3 = KEY_3 | KEY_KP3
+select_workspace_4 = KEY_4 | KEY_KP4
+select_workspace_5 = KEY_5 | KEY_KP5
+select_workspace_6 = KEY_6 | KEY_KP6
+select_workspace_7 = KEY_7 | KEY_KP7
+select_workspace_8 = KEY_8 | KEY_KP8
+select_workspace_9 = KEY_9 | KEY_KP9
+#+end_src
+** Viewport Switcher :workspace:key:
+#+begin_src conf
+[vswitch]
+background = \#1A1A1AFF
+duration   = 300
+gap        = 20
+wraparound = false
+#+end_src
+
+Keybindings.
+Switch to workspace with super + j/k/l/;.
+Move the focused window with the same key-bindings, but add Shift.
+#+begin_src conf
+binding_left   = <super> KEY_J                 #| <ctrl> <super> KEY_LEFT
+binding_down   = <super> KEY_L                 #| <ctrl> <super> KEY_DOWN
+binding_up     = <super> KEY_K                 #| <ctrl> <super> KEY_UP
+binding_right  = <super> KEY_SEMICOLON         #| <ctrl> <super> KEY_RIGHT
+binding_last   =
+with_win_left  = <super> <shift> KEY_J         #| <ctrl> <super> <shift> KEY_LEFT
+with_win_down  = <super> <shift> KEY_L         #| <ctrl> <super> <shift> KEY_DOWN
+with_win_up    = <super> <shift> KEY_K         #| <ctrl> <super> <shift> KEY_UP
+with_win_right = <super> <shift> KEY_SEMICOLON #| <ctrl> <super> <shift> KEY_RIGHT
+with_win_last  =
+send_win_left  = <alt> <super> KEY_J
+send_win_down  = <alt> <super> KEY_L
+send_win_up    = <alt> <super> KEY_K
+send_win_right = <alt> <super> KEY_SEMICOLON
+send_win_last  =
+binding_1      = <super> KEY_1
+binding_2      = <super> KEY_2
+binding_3      = <super> KEY_3
+binding_4      = <super> KEY_4
+binding_5      = <super> KEY_5
+binding_6      = <super> KEY_6
+binding_7      = <super> KEY_7
+binding_8      = <super> KEY_8
+binding_9      = <super> KEY_9
+with_win_1     = <shift> <super> KEY_1
+with_win_2     = <shift> <super> KEY_2
+with_win_3     = <shift> <super> KEY_3
+with_win_4     = <shift> <super> KEY_4
+with_win_5     = <shift> <super> KEY_5
+with_win_6     = <shift> <super> KEY_6
+with_win_7     = <shift> <super> KEY_7
+with_win_8     = <shift> <super> KEY_8
+with_win_9     = <shift> <super> KEY_9
+send_win_1     = <alt> <super> KEY_1
+send_win_2     = <alt> <super> KEY_2
+send_win_3     = <alt> <super> KEY_3
+send_win_4     = <alt> <super> KEY_4
+send_win_5     = <alt> <super> KEY_5
+send_win_6     = <alt> <super> KEY_6
+send_win_7     = <alt> <super> KEY_7
+send_win_8     = <alt> <super> KEY_8
+send_win_9     = <alt> <super> KEY_9
+
+#+end_src
+
+** Viewport Swipe :workspace:touch:
+This plugin allow switch viewport (or workspace) by swiping the touchpad.
+#+begin_src conf
+[vswipe]
+background               = \#1A1A1AFF
+fingers                  = 4
+delta_threshold          = 24.000000
+duration                 = 180
+enable_horizontal        = true
+enable_vertical          = true
+enable_free_movement     = true
+enable_smooth_transition = true
+gap                      = 32.000000
+speed_cap                = 0.050000
+speed_factor             = 256.000000
+threshold                = 0.350000
+#+end_src
+** Cube :workspace:key:mouse:
+Shows the current workspace row as a rotatable cube.
+The current workspace row contains workspaces in one row of  core.grid.
+#+begin_src conf
+[cube]
+background = \#1A1A1AFF
+background_mode = simple
+cubemap_image =
+deform = 0
+initial_animation = 350
+light = true
+skydome_mirror = true
+skydome_texture =
+speed_spin_horiz = 0.020000
+speed_spin_vert = 0.020000
+speed_zoom = 0.070000
+zoom = 0.100000
+#+end_src
+Keybinds.
+#+begin_src conf
+activate = <ctrl> <super> BTN_LEFT
+rotate_left = <ctrl> <super> KEY_J
+rotate_right = <ctrl> <super> KEY_SEMICOLON
+#+end_src
+** Workspace Sets :workspace:
+Allows manipulation of workspace sets.
+#+begin_src conf
+[wsets]
+label_duration = 2000
+#+end_src
+** Workspace name :workspace:
+#+begin_src conf
+[workspace-names]
+background_color = \#333333B3
+background_radius = 30.000000
+display_duration = 500
+font = sans-serif
+margin = 0
+position = center
+show_option_names = false
+text_color = \#FFFFFFFF
+#+end_src
+** Zoom :effect:mouse:
+Makes part area of an output looks larger.
+#+begin_src conf
+[zoom]
+interpolation_method = 0
+smoothing_duration = 300
+speed = 0.010000
+#+end_src
+Keybinds.
+Press super and scroll the mousewheel to zoom.
+#+begin_src conf
+modifier = <super>
+#+end_src
+** Invert :effect:key:
+Invert the colors of current output.
+#+begin_src conf
+[invert]
+preserve_hue = false
+toggle = <alt> <super> KEY_I
+#+end_src
+* Window
+** Move :mouse:
+A plugin to move windows around by dragging them from any part of the window.
+#+begin_src conf
+[move]
+enable_snap = true
+enable_snap_off = true
+join_views = false
+preview_base_border = \#404080CC
+preview_base_color = \#8080FF80
+preview_border_width = 3
+quarter_snap_threshold = 50
+snap_off_threshold = 10
+snap_threshold = 10
+workspace_switch_after = -1
+#+end_src
+Keybinds.
+Drag windows by Super and left mouse button.
+#+begin_src conf
+activate = <super> BTN_LEFT
+#+end_src
+** Resize :mouse:
+A plugin to resize windows by dragging them from any part of the window, not just the edges.
+#+begin_src conf
+[resize]
+activate_preserve_aspect = none
+#+end_src
+
+Keybinds.
+Resize windows with right mouse button + Super.
+#+begin_src conf
+activate = <super> BTN_RIGHT
+#+end_src
+** Grid :key:
+Position the windows in certain regions of the output.
+#+begin_src conf
+[grid]
+duration = 300
+type = crossfade
+#+end_src
+
+#+begin_src conf
+slot_bl = <super> KEY_KP1
+slot_b  = <super> KEY_KP2
+slot_br = <super> KEY_KP3
+slot_l  = <super> KEY_KP4 | <super> KEY_LEFT
+slot_c  = <super> KEY_KP5 | <super> KEY_UP
+slot_r  = <super> KEY_KP6 | <super> KEY_RIGHT
+slot_tl = <super> KEY_KP7
+slot_t  = <super> KEY_KP8
+slot_tr = <super> KEY_KP9
+restore = <super> KEY_KP0 | <super> KEY_DOWN
+#+end_src
+** Switcher :key:
+A plugin to change active window with an animation
+#+begin_src conf
+[switcher]
+speed = 500
+view_thumbnail_rotation = 30
+view_thumbnail_scale = 1.000000
+#+end_src
+Keybinds
+#+begin_src conf
+next_view = <alt> KEY_TAB
+prev_view = <alt> <shift> KEY_TAB
+#+end_src
+** Fast Switcher :key:
+Similar to Switcher, but change active window instantly.
+#+begin_src conf
+[fast-switcher]
+inactive_alpha = 0.700000
+#+end_src
+#+begin_src conf
+activate = <alt> KEY_ESC
+activate_backward = <alt> <shift> KEY_ESC
+#+end_src
+** Place
+Position newly opened windows
+#+begin_src conf
+[place]
+mode = center
+#+end_src
+** WM-actions :key:
+A plugin which provides many window management functionalities.
+#+begin_src conf
+[wm-actions]
+minimize = none
+send_to_back = none
+toggle_always_on_top = <super> KEY_X
+toggle_fullscreen = <super> KEY_F
+toggle_maximize = none
+toggle_showdesktop = none
+toggle_sticky = <shift> <super> KEY_X
+#+end_src
+** Follow Focus
+Allows auto focusing window by moving cursor onto the window.
+It's better to use this plugin together with simple tile.
+Setting focus_delay to 1 will cause crash on window dragging.
+#+begin_src conf
+[follow-focus]
+change_output = true
+change_view = true
+focus_delay = 0
+raise_on_top = true
+threshold = 10
+#+end_src
+** Simple Tile :key:mouse:
+Provides some tilling window manager features.
+#+begin_src conf
+[simple-tile]
+animation_duration = 150
+inner_gap_size = 5
+outer_horiz_gap_size = 5
+outer_vert_gap_size = 5
+keep_fullscreen_on_adjacent = true
+preview_base_border = \#404080CC
+preview_base_color = \#8080FF80
+preview_border_width = 3
+tile_by_default = all # all types of window
+#+end_src
+
+#+begin_src conf
+key_toggle = <super> KEY_N
+key_focus_above = <super> KEY_COMMA
+key_focus_below = <super> KEY_DOT
+key_focus_left = <super> KEY_M
+key_focus_right = <super> KEY_SLASH
+button_move = <super> BTN_LEFT
+button_resize = <super> BTN_RIGHT
+#+end_src
+** Fullscreen :key:
+#+begin_src conf
+[force-fullscreen]
+constrain_pointer = false
+constraint_area = view
+preserve_aspect = true
+transparent_behind_views = true
+x_skew = 0.000000
+y_skew = 0.000000
+#+end_src
+#+begin_src conf
+key_toggle_fullscreen = <alt> <super> KEY_F
+#+end_src
+** Focus stealing prevention
+#+begin_src conf
+[focus-steal-prevent]
+cancel_keys = KEY_ENTER
+deny_focus_views = none
+timeout = 1000
+#+end_src
+** Decoration :visual:
+Default decorations around xwayland windows.
+#+begin_src conf
+[decoration]
+active_color = \#222222AA
+inactive_color = \#333333DD
+border_size = 4
+# title_height = 30
+title_height = 0
+button_order = minimize maximize close
+font = sans-serif
+ignore_views = none
+#+end_src
+** Animation :visual:
+Provides animation when a window is opened or closed.
+#+begin_src conf
+[animate]
+close_animation = zoom
+duration = 200
+enabled_for = (type equals "toplevel" | (type equals "x-or" & focusable equals true))
+fade_duration = 400
+fade_enabled_for = type equals "overlay"
+fire_color = \#B22303FF
+fire_duration = 300
+fire_enabled_for = none
+fire_particle_size = 16.000000
+fire_particles = 2000
+open_animation = zoom
+random_fire_color = false
+startup_duration = 600
+zoom_duration = 500
+zoom_enabled_for = none
+#+end_src
+** Blur :visual:
+A plugin to blur windows. Resource intensive.
+#+begin_src conf
+[blur]
+blur_by_default = type is "toplevel"
+bokeh_degrade = 1
+bokeh_iterations = 15
+bokeh_offset = 5.000000
+box_degrade = 1
+box_iterations = 2
+box_offset = 1.000000
+gaussian_degrade = 1
+gaussian_iterations = 2
+gaussian_offset = 1.000000
+kawase_degrade = 8
+kawase_iterations = 2
+kawase_offset = 2.000000
+method = kawase
+saturation = 1.000000
+toggle = none
+#+end_src
+** Wobbly :visual:
+This plugin makes windows wobbly.
+Dragging windows around or changing their sizes will have a wobbly animation.
+#+begin_src conf
+[wobbly]
+friction = 3.000000
+spring_k = 8.000000
+grid_resolution = 6
+#+end_src
+** Keycolor :visual:
+Modify the alpha channel of a specific color of all the windows
+#+begin_src conf
+[keycolor]
+color = \#000000FF
+opacity = 0.250000
+threshold = 0.500000
+#+end_src
+** Alpha :visual:mouse:
+Change opacity by scrolling + Super + Alt.
+#+begin_src conf
+[alpha]
+min_value = 0.100000
+#+end_src
+#+begin_src conf
+modifier = <super> <alt>
+#+end_src
+** Window Zoom :visual:mouse:key:
+Change the zoom level of windows.
+#+begin_src conf
+[winzoom]
+nearest_filtering = false
+preserve_aspect = true
+zoom_step = 0.100000
+#+end_src
+#+begin_src config
+modifier = <ctrl> <super>
+dec_x_binding = <ctrl> <super> KEY_LEFT
+dec_y_binding = <ctrl> <super> KEY_UP
+inc_x_binding = <ctrl> <super> KEY_RIGHT
+inc_y_binding = <ctrl> <super> KEY_DOWN
+#+end_src
+** Window Rotate :visual:mouse:key:
+Rotate windows. Can rotate in 2d and in 3d.
+#+begin_src conf
+[wrot]
+invert = false # invert 3d directions
+reset_radius = 25.000000
+sensitivity = 24
+#+end_src
+Keybinds.
+#+begin_src conf
+activate = <ctrl> <super> BTN_RIGHT
+activate-3d = <shift> <super> BTN_RIGHT
+reset = <ctrl> <super> KEY_R
+reset-one = <super> KEY_R
+#+end_src
+* Utility
+** Fisheye :visual:key:
+Fisheye effect.
+#+begin_src conf
+[fisheye]
+radius = 450.000000
+zoom = 7.000000
+#+end_src
+#+begin_src conf
+toggle = <super> <ctrl> KEY_F
+#+end_src
+** Water :visual:mouse:
+Water effect.
+#+begin_src conf
+[water]
+activate = <ctrl> <super> BTN_LEFT
+#+end_src
+** Magnifier :effect:key:
+Create a window which serves as a magnifier and shows the area around the cursor, enlarged.
+#+begin_src conf
+[mag]
+default_height = 500
+toggle = <alt> <super> KEY_M
+zoom_level = 75
+#+end_src
+** Annotate :mouse:key:
+Allows drawing on the output
+#+begin_src conf
+[annotate]
+clear_workspace = <alt> <super> KEY_C
+draw = <alt> <super> BTN_LEFT
+from_center = true
+line_width = 3.000000
+method = draw
+stroke_color = \#FF0000FF
+#+end_src
+** Hide cursor :key:
+#+begin_src conf
+[hide-cursor]
+hide_delay = 2000
+toggle = <ctrl> <super> KEY_H
+#+end_src
+** Viewshot :key:
+#+begin_src conf
+[view-shot]
+capture = <alt> <super> BTN_MIDDLE
+command = notify-send "The view under cursor was captured to %f"
+filename = /tmp/snapshot-%F-%T.png
+#+end_src
+** Show repaint :key:
+#+begin_src conf
+[showrepaint]
+reduce_flicker = true
+toggle = <alt> <super> KEY_S
+#+end_src
+** Bench
+Display fps on each output
+#+begin_src conf
+[bench]
+average_frames = 25
+position = top_center
+#+end_src
+** Workarounds
+#+begin_src conf
+[workarounds]
+all_dialogs_modal = true
+app_id_mode = stock
+dynamic_repaint_delay = false
+enable_so_unloading = false
+force_preferred_decoration_mode = false
+remove_output_limits = false
+use_external_output_configuration = false
+#+end_src
+** IPC
+#+begin_src conf
+[ipc]
+
+[ipc-rules]
+
+#+end_src
+** Hinge
+#+begin_src conf
+[hinge]
+filename = /sys/bus/iio/devices/iio:device1/in_angl0_raw
+flip_degree = 180
+poll_freq = 200
+#+end_src
+* Rules
+#+begin_src conf
+[window-rules]
+maximize_alacritty = on created if app_id is "Alacritty" then maximize
+#+end_src
+* Shell
+** Background
+#+begin_src conf
+#+end_src
+** Dock
+** Panel
+wayfire-shell
+#+begin_src conf
+
+#+end_src
+* Debug
+:PROPERTIES:
+:header-args:toml: :tangle wayfire-debug.ini
+:END:
+
+#+begin_src toml
+[core]
+plugins = \
+  alpha \
+  animate \
+  autostart  command \
+  cube  expo  fast-switcher  fisheye  foreign-toplevel grid gtk-shell idle invert move oswitch  place resize scale scale-title-filter shortcuts-inhibit \
+  switcher vswipe vswitch water wayfire-shell window-rules wm-actions wobbly wrot zoom \
+# simple-tile follow-focus \
+# crosshair
+# swayfire
+
+close_top_view = <alt> KEY_Q | <alt> KEY_F4
+
+focus_buttons = BTN_LEFT | BTN_MIDDLE | BTN_RIGHT
+focus_buttons_passthrough = true
+focus_button_with_modifiers = false
+
+vwidth = 3
+vheight = 3
+
+background_color = \#1A1A1AFF
+
+preferred_decoration_mode = server
+
+max_render_time = -1 # infinity
+transaction_timeout = 100
+
+xwayland = true
+
+[input]
+
+left_handed_mode = false
+
+modifier_binding_timeout = 400
+kb_repeat_delay = 250 # default 400
+kb_repeat_rate = 32 # default 40
+kb_capslock_default_state = false
+kb_numlock_default_state = false
+xkb_layout = us
+xkb_model =
+xkb_options = caps:escape,shift:both_capslock
+xkb_rules = evdev
+xkb_variant =
+
+touchpad_accel_profile = default
+touchpad_cursor_speed = 0.000000
+touchpad_scroll_speed = 1.000000
+
+click_method = default
+tap_to_click = true
+
+scroll_method = default
+natural_scroll = true
+
+disable_touchpad_while_mouse = false
+disable_touchpad_while_typing = false
+drag_lock = false
+
+middle_emulation = false
+mouse_accel_profile = default
+mouse_cursor_speed = 0.000000
+mouse_scroll_speed = 1.000000
+cursor_size = 32
+cursor_theme = default
+
+tablet_motion_mode = default
+
+[autostart]
+
+autostart_wf_shell = false
+background = wf-background
+# panel = wf-panel
+panel = waybar
+# dock = wf-dock
+
+outputs = kanshi
+
+notifications = swaync
+
+# gamma = wlsunset
+
+idle = swayidle before-sleep swaylock
+
+portal = /usr/libexec/xdg-desktop-portal
+
+autostart0 = fcitx5
+autostart1 = clash-verge
+
+[idle]
+toggle = <alt> KEY_Z
+screensaver_timeout = 300
+dpms_timeout = 600
+
+[command]
+
+command_terminal = kitty
+binding_terminal = <alt> KEY_ENTER
+
+command_launcher = anyrun
+binding_launcher = <alt> KEY_R # Run
+
+command_lock = swaylock
+binding_lock = <alt> <shift> KEY_ESC
+
+command_logout = wlogout
+binding_logout = <alt> KEY_DELETE
+
+command_screenshot = grimblast --notify --cursor copysave area ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S_1.png')
+binding_screenshot = <shift> KEY_PRINT | <shift> KEY_SYSRQ
+
+command_screenshot_interactive = grimblast --notify --cursor copysave area ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S_1.png')
+binding_screenshot_interactive = KEY_PRINT | KEY_SYSRQ
+
+command_volume_up = amixer set Master 5%+
+repeatable_binding_volume_up = KEY_VOLUMEUP
+command_volume_down = amixer set Master 5%-
+repeatable_binding_volume_down = KEY_VOLUMEDOWN
+command_mute = amixer set Master toggle
+binding_mute = KEY_MUTE
+
+command_light_up = light -A 5
+repeatable_binding_light_up = KEY_BRIGHTNESSUP
+
+command_light_down = light -U 5
+repeatable_binding_light_down = KEY_BRIGHTNESSDOWN
+
+command_0 = emacs
+binding_0 = <alt> KEY_M
+always_binding_0 =
+always_binding_launcher =
+always_binding_light_down =
+always_binding_light_up =
+always_binding_lock =
+always_binding_logout =
+always_binding_mute =
+always_binding_screenshot =
+always_binding_screenshot_interactive =
+always_binding_terminal =
+always_binding_volume_down =
+always_binding_volume_up =
+binding_light_down =
+binding_light_up =
+binding_volume_down =
+binding_volume_up =
+release_binding_0 =
+release_binding_launcher =
+release_binding_light_down =
+release_binding_light_up =
+release_binding_lock =
+release_binding_logout =
+release_binding_mute =
+release_binding_screenshot =
+release_binding_screenshot_interactive =
+release_binding_terminal =
+release_binding_volume_down =
+release_binding_volume_up =
+repeatable_binding_0 =
+repeatable_binding_launcher =
+repeatable_binding_lock =
+repeatable_binding_logout =
+repeatable_binding_mute =
+repeatable_binding_screenshot =
+repeatable_binding_screenshot_interactive =
+repeatable_binding_terminal =
+
+[oswitch]
+next_output = <alt> KEY_COMMA
+next_output_with_win = <shift> <alt> KEY_COMMA
+# prev_output = <alt> KEY_DOT
+# prev_output_with_win = <shift> <alt> KEY_DOT
+
+[background-view]
+app_id = mpv
+command = mpv --loop=inf
+file =
+inhibit_input = true
+
+[autorotate-iio]
+lock_rotation = false
+rotate_down   = <alt> <ctrl> KEY_DOWN
+rotate_left   = <alt> <ctrl> KEY_LEFT
+rotate_right  = <alt> <ctrl> KEY_RIGHT
+rotate_up     = <alt> <ctrl> KEY_UP
+
+[idle]
+cube_max_zoom = 1.500000
+cube_rotate_speed = 1.000000
+cube_zoom_speed = 1000
+disable_initially = false
+disable_on_fullscreen = true
+dpms_timeout = 600
+screensaver_timeout = 300
+
+toggle = <super> KEY_Z
+
+[preserve-output]
+last_output_focus_timeout = 10000
+
+[crosshair]
+line_color = \#FF0000FF
+line_width = 2
+
+[scale]
+# behavior
+allow_zoom = false
+duration = 750
+middle_click_close = false
+bg_color = \#1A1A1AE6
+include_minimized = false
+# appearance
+inactive_alpha = 0.750000
+minimized_alpha = 0.450000
+spacing = 50
+text_color = \#CCCCCCFF
+title_font_size = 16
+title_overlay = all
+title_position = center
+
+toggle =
+toggle_all = <super> KEY_P
+
+[scale-title-filter]
+bg_color = \#00000080
+case_sensitive = false
+font_size = 30
+overlay = true
+share_filter = false
+text_color = \#CCCCCCCC
+
+[join-views]
+
+[extra-gestures]
+close_fingers = 20
+move_delay = 500
+move_fingers = 3
+
+[expo]
+background = \#1A1A1AFF
+duration = 300
+inactive_brightness = 0.700000
+keyboard_interaction = true
+offset = 10
+transition_length = 200
+
+toggle = <alt>
+select_workspace_1 = KEY_1 | KEY_KP1
+select_workspace_2 = KEY_2 | KEY_KP2
+select_workspace_3 = KEY_3 | KEY_KP3
+select_workspace_4 = KEY_4 | KEY_KP4
+select_workspace_5 = KEY_5 | KEY_KP5
+select_workspace_6 = KEY_6 | KEY_KP6
+select_workspace_7 = KEY_7 | KEY_KP7
+select_workspace_8 = KEY_8 | KEY_KP8
+select_workspace_9 = KEY_9 | KEY_KP9
+
+[vswitch]
+background = \#1A1A1AFF
+duration   = 300
+gap        = 20
+wraparound = false
+
+binding_left   = <alt> KEY_J                 #| <ctrl> <alt> KEY_LEFT
+binding_down   = <alt> KEY_L                 #| <ctrl> <alt> KEY_DOWN
+binding_up     = <alt> KEY_K                 #| <ctrl> <alt> KEY_UP
+binding_right  = <alt> KEY_SEMICOLON         #| <ctrl> <alt> KEY_RIGHT
+binding_last   =
+with_win_left  = <alt> <shift> KEY_J         #| <ctrl> <alt> <shift> KEY_LEFT
+with_win_down  = <alt> <shift> KEY_L         #| <ctrl> <alt> <shift> KEY_DOWN
+with_win_up    = <alt> <shift> KEY_K         #| <ctrl> <alt> <shift> KEY_UP
+with_win_right = <alt> <shift> KEY_SEMICOLON #| <ctrl> <alt> <shift> KEY_RIGHT
+with_win_last  =
+# send_win_left  = <alt> <super> KEY_J
+# send_win_down  = <alt> <super> KEY_L
+# send_win_up    = <alt> <super> KEY_K
+# send_win_right = <alt> <super> KEY_SEMICOLON
+send_win_last  =
+binding_1      = <alt> KEY_1
+binding_2      = <alt> KEY_2
+binding_3      = <alt> KEY_3
+binding_4      = <alt> KEY_4
+binding_5      = <alt> KEY_5
+binding_6      = <alt> KEY_6
+binding_7      = <alt> KEY_7
+binding_8      = <alt> KEY_8
+binding_9      = <alt> KEY_9
+with_win_1     = <shift> <alt> KEY_1
+with_win_2     = <shift> <alt> KEY_2
+with_win_3     = <shift> <alt> KEY_3
+with_win_4     = <shift> <alt> KEY_4
+with_win_5     = <shift> <alt> KEY_5
+with_win_6     = <shift> <alt> KEY_6
+with_win_7     = <shift> <alt> KEY_7
+with_win_8     = <shift> <alt> KEY_8
+with_win_9     = <shift> <alt> KEY_9
+# send_win_1     = <alt> <super> KEY_1
+# send_win_2     = <alt> <super> KEY_2
+# send_win_3     = <alt> <super> KEY_3
+# send_win_4     = <alt> <super> KEY_4
+# send_win_5     = <alt> <super> KEY_5
+# send_win_6     = <alt> <super> KEY_6
+# send_win_7     = <alt> <super> KEY_7
+# send_win_8     = <alt> <super> KEY_8
+# send_win_9     = <alt> <super> KEY_9
+
+[vswipe]
+background               = \#1A1A1AFF
+fingers                  = 4
+delta_threshold          = 24.000000
+duration                 = 180
+enable_horizontal        = true
+enable_vertical          = true
+enable_free_movement     = true
+enable_smooth_transition = true
+gap                      = 32.000000
+speed_cap                = 0.050000
+speed_factor             = 256.000000
+threshold                = 0.350000
+
+[cube]
+background = \#1A1A1AFF
+background_mode = simple
+cubemap_image =
+deform = 0
+initial_animation = 350
+light = true
+skydome_mirror = true
+skydome_texture =
+speed_spin_horiz = 0.020000
+speed_spin_vert = 0.020000
+speed_zoom = 0.070000
+zoom = 0.100000
+
+activate = <ctrl> <alt> BTN_LEFT
+rotate_left = <ctrl> <alt> KEY_J
+rotate_right = <ctrl> <alt> KEY_SEMICOLON
+
+[wsets]
+label_duration = 2000
+
+[workspace-names]
+background_color = \#333333B3
+background_radius = 30.000000
+display_duration = 500
+font = sans-serif
+margin = 0
+position = center
+show_option_names = false
+text_color = \#FFFFFFFF
+
+[zoom]
+interpolation_method = 0
+smoothing_duration = 300
+speed = 0.010000
+
+modifier = <alt>
+
+[invert]
+preserve_hue = false
+toggle = <shift> <alt> KEY_I
+
+[move]
+enable_snap = true
+enable_snap_off = true
+join_views = false
+preview_base_border = \#404080CC
+preview_base_color = \#8080FF80
+preview_border_width = 3
+quarter_snap_threshold = 50
+snap_off_threshold = 10
+snap_threshold = 10
+workspace_switch_after = -1
+
+activate = <alt> BTN_LEFT
+
+[resize]
+activate_preserve_aspect = none
+
+activate = <alt> BTN_RIGHT
+
+[grid]
+duration = 300
+type = crossfade
+
+slot_bl = <alt> KEY_KP1
+slot_b  = <alt> KEY_KP2
+slot_br = <alt> KEY_KP3
+slot_l  = <alt> KEY_KP4 | <alt> KEY_LEFT
+slot_c  = <alt> KEY_KP5 | <alt> KEY_UP
+slot_r  = <alt> KEY_KP6 | <alt> KEY_RIGHT
+slot_tl = <alt> KEY_KP7
+slot_t  = <alt> KEY_KP8
+slot_tr = <alt> KEY_KP9
+restore = <alt> KEY_KP0 | <alt> KEY_DOWN
+
+[switcher]
+speed = 500
+view_thumbnail_rotation = 30
+view_thumbnail_scale = 1.000000
+
+next_view = <alt> KEY_TAB
+prev_view = <alt> <shift> KEY_TAB
+
+[fast-switcher]
+inactive_alpha = 0.700000
+
+activate = <alt> KEY_ESC
+activate_backward = <alt> <shift> KEY_ESC
+
+[place]
+mode = center
+
+[wm-actions]
+minimize = none
+send_to_back = none
+toggle_always_on_top = <alt> KEY_X
+toggle_fullscreen = <alt> KEY_F
+toggle_maximize = none
+toggle_showdesktop = none
+toggle_sticky = <shift> <alt> KEY_X
+
+[follow-focus]
+change_output = true
+change_view = true
+focus_delay = 0
+raise_on_top = true
+threshold = 10
+
+[simple-tile]
+animation_duration = 0
+inner_gap_size = 5
+keep_fullscreen_on_adjacent = true
+outer_horiz_gap_size = 0
+outer_vert_gap_size = 0
+preview_base_border = \#404080CC
+preview_base_color = \#8080FF80
+preview_border_width = 3
+tile_by_default = all # all types of window
+
+key_toggle = <alt> KEY_F1
+key_focus_above = <alt> KEY_K
+key_focus_below = <alt> KEY_L
+key_focus_left = <alt> KEY_J
+key_focus_right = <alt> KEY_SEMICOLON
+button_move = <alt> BTN_LEFT
+button_resize = <alt> BTN_RIGHT
+
+[force-fullscreen]
+constrain_pointer = false
+constraint_area = view
+preserve_aspect = true
+transparent_behind_views = true
+x_skew = 0.000000
+y_skew = 0.000000
+
+key_toggle_fullscreen = <alt> <alt> KEY_F
+
+[focus-steal-prevent]
+cancel_keys = KEY_ENTER
+deny_focus_views = none
+timeout = 1000
+
+[decoration]
+active_color = \#222222AA
+border_size = 4
+button_order = minimize maximize close
+font = sans-serif
+ignore_views = none
+inactive_color = \#333333DD
+title_height = 30
+
+[animate]
+close_animation = zoom
+duration = 200
+enabled_for = (type equals "toplevel" | (type equals "x-or" & focusable equals true))
+fade_duration = 400
+fade_enabled_for = type equals "overlay"
+fire_color = \#B22303FF
+fire_duration = 300
+fire_enabled_for = none
+fire_particle_size = 16.000000
+fire_particles = 2000
+open_animation = zoom
+random_fire_color = false
+startup_duration = 600
+zoom_duration = 500
+zoom_enabled_for = none
+
+[blur]
+blur_by_default = type is "toplevel"
+bokeh_degrade = 1
+bokeh_iterations = 15
+bokeh_offset = 5.000000
+box_degrade = 1
+box_iterations = 2
+box_offset = 1.000000
+gaussian_degrade = 1
+gaussian_iterations = 2
+gaussian_offset = 1.000000
+kawase_degrade = 8
+kawase_iterations = 2
+kawase_offset = 2.000000
+method = kawase
+saturation = 1.000000
+toggle = none
+
+[wobbly]
+friction = 3.000000
+spring_k = 8.000000
+grid_resolution = 6
+
+[keycolor]
+color = \#000000FF
+opacity = 0.250000
+threshold = 0.500000
+
+[alpha]
+min_value = 0.100000
+
+modifier = <alt> <alt>
+
+[winzoom]
+nearest_filtering = false
+preserve_aspect = true
+zoom_step = 0.100000
+
+[wrot]
+invert = false # invert 3d directions
+reset_radius = 25.000000
+sensitivity = 24
+
+activate = <ctrl> <alt> BTN_RIGHT
+activate-3d = <shift> <alt> BTN_RIGHT
+reset = <ctrl> <alt> KEY_R
+reset-one = <alt> KEY_R
+
+[fisheye]
+radius = 450.000000
+zoom = 7.000000
+
+toggle = <alt> <ctrl> KEY_F
+
+[water]
+activate = <ctrl> <alt> BTN_LEFT
+
+[mag]
+default_height = 500
+toggle = <alt> <alt> KEY_M
+zoom_level = 75
+
+[annotate]
+clear_workspace = <alt> <alt> KEY_C
+draw = <alt> <alt> BTN_LEFT
+from_center = true
+line_width = 3.000000
+method = draw
+stroke_color = \#FF0000FF
+
+[hide-cursor]
+hide_delay = 2000
+toggle = <ctrl> <alt> KEY_H
+
+[view-shot]
+capture = <alt> BTN_MIDDLE
+command = notify-send "The view under cursor was captured to %f"
+filename = /tmp/snapshot-%F-%T.png
+
+[showrepaint]
+reduce_flicker = true
+toggle = <alt> KEY_S
+
+[bench]
+average_frames = 25
+position = top_center
+
+[workarounds]
+all_dialogs_modal = true
+app_id_mode = stock
+dynamic_repaint_delay = false
+enable_so_unloading = false
+force_preferred_decoration_mode = false
+remove_output_limits = false
+use_external_output_configuration = false
+
+[ipc]
+
+[ipc-rules]
+
+[hinge]
+filename = /sys/bus/iio/devices/iio:device1/in_angl0_raw
+flip_degree = 180
+poll_freq = 200
+
+[window-rules]
+maximize_alacritty = on created if app_id is "Alacritty" then maximize
+#+end_src

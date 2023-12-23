@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+emacs --batch -l org --visit=$1 --funcall org-babel-tangle

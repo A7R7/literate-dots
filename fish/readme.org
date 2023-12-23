@@ -1,0 +1,15 @@
+
+#+title: Fish Configuration
+#+author: A7R7
+#+language: en
+#+PROPERTY: header-args:fish :tangle config.fish
+#+AUTO_TANGLE: t
+
+* Init
+#+begin_src fish
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    set -U fish_greeting
+    starship init fish | source
+end
+#+end_src

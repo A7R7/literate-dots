@@ -1,0 +1,93 @@
+#+title: ZSH Configuration
+#+author:A7R7
+#+language:en
+#+PROPERTY: header-args:zsh :tangle .zshrc
+#+AUTO_TANGLE: t
+* Starship
+#+begin_src zsh :tangle no
+zinit ice as"command" from"gh-r" atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+#+end_src
+
+#+begin_src zsh
+eval "$(starship init zsh)"
+#+end_src
+
+#+RESULTS:
+
+* Zinit bootstrap
+#+begin_src zsh
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+#+end_src
+
+* Plugins
+#+begin_src zsh
+zinit light-mode for \
+  zdharma/fast-syntax-highlighting \
+  zsh-users/zsh-completions \
+  zsh-users/zsh-autosuggestions \
+  OMZ::lib/history.zsh \
+  OMZ::lib/clipboard.zsh \
+  OMZP::colored-man-pages \
+  OMZP::extract \
+  ajeetdsouza/zoxide \
+  # romkatv/powerlevel10k \
+
+#+end_src
+
+#+begin_src zsh
+eval $(thefuck --alias)
+#+end_src
+
+* Alias & functions
+
+#+begin_src zsh :tangle no
+# alias
+  alias sudo='sudo '
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+  alias l='ls -CF'
+  alias ll='ls -alF'
+  alias la='ls -ACF'
+#+end_src
+
+#+begin_src zsh
+alias l='eza --group-directories-first --icons=auto'
+alias ll='eza -l --icons=auto'
+alias ls='eza --group-directories-first --icons=auto'
+alias la='eza -a --icons=auto'
+#+end_src
+
+#+begin_src zsh
+# helpful cds
+alias .='cd .'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'
+function mkcd { mkdir "$1"; cd "$1"; }
+#+end_src
+
+#+begin_src zsh
+# helpful tools
+alias ex='extract'
+alias open="exo-open"
+alias trash="gio trash"
+alias info="info --vi-keys"
+#+end_src
+
+#+begin_src zsh
+alias jos="joshuto"
+alias hm="home-manager"
+#+end_src

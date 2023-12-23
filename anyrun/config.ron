@@ -1,0 +1,21 @@
+Config(
+    x: Fraction(0.5),
+    y: Fraction(0.2),
+    width: Absolute(800),
+    height: Absolute(-1),
+    hide_icons: false,
+    hide_plugin_info: false,
+    ignore_exclusive_zones: false,
+    layer: Top,
+    close_on_click: false,
+    show_results_immediately: false,
+    plugins: [
+        "libapplications.so",
+        "libsymbols.so",
+        "librink.so",
+        "libshell.so",
+        "libtranslate.so",
+        "libkidex.so",
+        "libdictionary.so",
+    ]
+)

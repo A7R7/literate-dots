@@ -1,0 +1,10 @@
+#+title: Bash Configuration
+#+author:A7R7
+#+language:en
+#+PROPERTY: header-args:bash :tangle .bashrc
+#+AUTO_TANGLE: t
+
+* Starship
+#+begin_src bash
+eval "$(starship init bash)"
+#+end_src
