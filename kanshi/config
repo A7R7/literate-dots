@@ -1,4 +1,13 @@
 profile {
+	output "Philips Consumer Electronics Company PHL24E1N5600 UK02229007492" mode 2560x1440@75Hz position 0,0
+        output "BOE 0x0B7D" mode 2560x1440@240Hz position 2560,0
+}
+
+profile {
+        output "BOE 0x0B7D" mode 2560x1440@240Hz position 0,0
+}
+
+profile {
 	output "Dell Inc. DELL P190S T4YM62652VVL" mode 1280x1024@60Hz position 0,0 transform 90
 	output "Philips Consumer Electronics Company PHL24E1N5600 UK02229007492" mode 2560x1440@75Hz position 1024,0
 	output "BOE 0x092F 0x56593330" mode 2520x1680@60Hz position 3584,0

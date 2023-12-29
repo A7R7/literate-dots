@@ -121,7 +121,7 @@ Tablet
 #+begin_src conf
 tablet_motion_mode = default
 #+end_src
-** Output
+** COMMENT Output
 You can get the names of your outputs with [[https://github.com/emersion/wlr-randr][wlr-randr]].
 See also [[https://wayland.emersion.fr/kanshi/][kanshi]] for configuring your outputs automatically.
 See [[https://github.com/WayfireWM/wayfire/wiki/Configuration#output][Output options]] for a complete reference.
@@ -195,7 +195,8 @@ portal = /usr/libexec/xdg-desktop-portal
 
 #+begin_src conf
 autostart0 = fcitx5
-autostart1 = clash-verge
+autostart1 = blueman-applet
+autostart2 = clash-verge
 #+end_src
 
 Disables the compositor going idle with Super + z.
@@ -403,15 +404,15 @@ transition_length = 200
 
 #+begin_src conf
 toggle = <super>
-select_workspace_1 = KEY_1 | KEY_KP1
-select_workspace_2 = KEY_2 | KEY_KP2
-select_workspace_3 = KEY_3 | KEY_KP3
+select_workspace_1 = KEY_1 | KEY_KP7
+select_workspace_2 = KEY_2 | KEY_KP8
+select_workspace_3 = KEY_3 | KEY_KP9
 select_workspace_4 = KEY_4 | KEY_KP4
 select_workspace_5 = KEY_5 | KEY_KP5
 select_workspace_6 = KEY_6 | KEY_KP6
-select_workspace_7 = KEY_7 | KEY_KP7
-select_workspace_8 = KEY_8 | KEY_KP8
-select_workspace_9 = KEY_9 | KEY_KP9
+select_workspace_7 = KEY_7 | KEY_KP1
+select_workspace_8 = KEY_8 | KEY_KP2
+select_workspace_9 = KEY_9 | KEY_KP3
 #+end_src
 ** Viewport Switcher :workspace:key:
 #+begin_src conf
@@ -704,7 +705,7 @@ timeout = 1000
 Default decorations around xwayland windows.
 #+begin_src conf
 [decoration]
-active_color = \#222222AA
+active_color = \#406BBF70
 inactive_color = \#333333DD
 border_size = 4
 # title_height = 30
@@ -808,7 +809,7 @@ Keybinds.
 activate = <ctrl> <super> BTN_RIGHT
 activate-3d = <shift> <super> BTN_RIGHT
 reset = <ctrl> <super> KEY_R
-reset-one = <super> KEY_R
+reset-one = <super> KEY_R | <super> BTN_MIDDLE
 #+end_src
 * Utility
 ** Fisheye :visual:key:

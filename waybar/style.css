@@ -72,16 +72,15 @@ window#waybar > box {
 #mode,
 #network,
 #pulseaudio,
-#tray, 
+#tray,
 #temperature
 {
-    font-weight:bold;
     padding-left: 8px;
     padding-right: 8px;
     /* margin-top:5px; */
 }
 
-#custom-close 
+#custom-close
 {
     color: white;
     padding: 0px 9px 0px 8px;
@@ -137,7 +136,6 @@ window#waybar > box {
 
 #clock {
     font-size:20px;
-    font-weight: bold;
 }
 
 #cpu {
@@ -212,7 +210,6 @@ window#waybar > box {
 #window {
     padding-left:10px;
     padding-right:10px;
-    font-weight:bold;
 }
 
 
@@ -252,12 +249,10 @@ label {
     color: #ffffff;
     background: #444874;
     color:white;
-    font-weight:bold;
 }
 #workspaces button:hover {
     background: cyan;
     color:black;
-    font-weight:bold;
     box-shadow:inherit;
     text-shadow:inherit;
 }
@@ -269,7 +264,6 @@ label {
 
 #workspaces button.urgent {
     background: #141834;
-    font-weight:bold;
     /* border-color: #c9545d; */
     color: #c9545d;
 }
@@ -289,6 +283,4 @@ label {
 #custom-media-next:hover {
     background: cyan;
     color:black;
-    font-weight:bold;
 }
-

@@ -6,11 +6,11 @@
       "critical": 15
     },
     // Connected to AC
-    "format": " {capacity}%", 
+    "format": "󱐋 {capacity}%",
 
     // Not connected to AC
     "format-discharging": "{icon} {capacity}%",
-    "format-icons": [ "", "", "", "", "", ],
+    "format-icons": [ "", "", "", "", "", ],
     "tooltip": false
   },
 
@@ -28,7 +28,7 @@
     "format-muted": "婢",
     "format-icons": {
       "phone": ["", "", "", ""],
-      "default": ["", "", "墳", ""]
+      "default": ["󰕿", "󰖀", "󰕾"]
     },
     "scroll-step": 5,
     "on-click": "pavucontrol",
@@ -65,8 +65,8 @@
 
   "network": {
     "interval": 5,
-    "format-wifi": "直 {essid}", // Icon: wifi
-    // "format-ethernet": " {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
+    "format-wifi": " {essid}", // Icon: wifi
+    "format-ethernet": "󰈀 {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
     "format-disconnected": " Disconnected",//
     "tooltip-format": "{ifname}: {ipaddr}"
   },
